@@ -223,6 +223,29 @@ exports.updateTeacher = [
         .notEmpty()
         .withMessage("Last name is required."),
 
+    body("cin")
+        .notEmpty()
+        .withMessage("CIN is required.")
+        .trim()
+        .matches(/^\d{8}$/)
+        .withMessage("Invalid CIN. CIN must contain exactly 8 digits.")
+        .bail()
+        .custom(async (value, { req }) => {
+            const existingTeacher = await Teacher.findOne({
+                where: {
+                    cin: value,
+                    is_deleted: false,
+                    id: { [Op.ne]: req.params.id },
+                },
+            });
+
+            if (existingTeacher) {
+                throw new Error("CIN already exists.");
+            }
+
+            return true;
+        }),
+
     body("phone")
         .optional({ checkFalsy: true })
         .trim()
@@ -273,6 +296,7 @@ exports.updateTeacher = [
 
             const {
                 name,
+                cin,
                 last_name,
                 phone,
                 price_by_hour,
@@ -301,6 +325,7 @@ exports.updateTeacher = [
                 {
                     name,
                     last_name,
+                    cin,
                     phone,
                     price_by_hour,
                     status,
@@ -357,6 +382,14 @@ exports.updateTeacher = [
         } catch (error) {
             // Rollback everything if something fails
             await transaction.rollback();
+
+            // Unique constraint fallback (race condition)
+            if (error.name === "SequelizeUniqueConstraintError") {
+                return res.status(400).json({
+                    message: "Validation failed",
+                    errors: [{ msg: "CIN already exists.", path: "cin", location: "body" }],
+                });
+            }
 
             console.error("Update teacher error:", error);
 
