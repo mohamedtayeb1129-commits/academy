@@ -1,0 +1,30 @@
+{
+  "name": "ecole",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server.js",
+    "admin": "node ./seeders/admin.js",
+    "price": "node ./seeders/price.js",
+    "school": "node ./seeders/schoolInfo.js",
+    "books": "node ./seeders/daycareBooksFee.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "exceljs": "^4.4.0",
+    "express": "^5.2.1",
+    "express-validator": "^7.3.2",
+    "jsonwebtoken": "^9.0.3",
+    "node-cron": "^4.6.0",
+    "nodemon": "^3.1.14",
+    "pg": "^8.23.0",
+    "puppeteer": "^25.9.0",
+    "sequelize": "^6.37.8"
+  }
+}
