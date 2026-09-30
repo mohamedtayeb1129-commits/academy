@@ -1,8 +1,8 @@
 const express = require("express");
-const { getPrices, updateTuitionFee } = require("../controllers/PriceController");
+const { getPrices, updatePrices,  } = require("../controllers/PriceController");
 const router = express.Router()
 
 router.get("/",getPrices)
-router.put("/:id",updateTuitionFee)
+router.put("/",updatePrices)
 
 module.exports = router

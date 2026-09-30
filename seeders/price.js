@@ -9,13 +9,13 @@ async function createAdmin (){
         await sequelize.sync();
     
     const data = [
-        { level: 'ابتدائي', amount: 30 },
-        { level:'اعدادي', amount: 40 },
-        { level: 'ثانوي', amount: 45 },
-        { level: 'باكالوريا', amount: 50 },
+        { level: 'ابتدائي', amount: 30, brother_amount:20,is_brother_amount:true },
+        { level:'اعدادي', amount: 40, brother_amount:20,is_brother_amount:true },
+        { level: 'ثانوي', amount: 45, brother_amount:20,is_brother_amount:true },
+        { level: 'باكالوريا', amount: 50, brother_amount:0,is_brother_amount:false },
     ]
     for(const d of data){
-        await TuitionFee.create({label:d.level,amount:d.amount})
+        await TuitionFee.create({label:d.level,amount:d.amount,brother_amount:d.brother_amount,is_brother_amount:d.is_brother_amount})
     }
     console.log("price created");
     process.exit();

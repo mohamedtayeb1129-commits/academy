@@ -14,5 +14,12 @@ const TuitionFee  = sequelize.define("tuition_fee",{
     amount:{
         type:DataTypes.DOUBLE,
     },
+    brother_amount:{
+        type:DataTypes.DOUBLE,
+    },
+     is_brother_amount:{
+        type:DataTypes.BOOLEAN,
+    },
+
 })
 module.exports = TuitionFee

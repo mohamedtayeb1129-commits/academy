@@ -5,6 +5,7 @@ const Payment = require("./Payment");
 const Scoring = require("./Scoring");
 const Student = require("./Student");
 const StudentPackage = require("./StudentPackage");
+const StudentSubject = require("./StudentSubject");
 const Subject = require("./Subject");
 const Subscription = require("./Subscription");
 const Teacher = require("./Teacher");
@@ -18,6 +19,17 @@ Teacher.hasMany(Subject,{
 Subject.belongsTo(Teacher,{
     foreignKey:"teacher_id",
     as:"teacher"
+})
+
+
+Student.hasMany(StudentSubject,{
+    foreignKey:"student_id",
+    as:"subjects"
+})
+
+StudentSubject.belongsTo(Student,{
+    foreignKey:"student_id",
+    as:"subjectStudent"
 })
 
 Teacher.hasMany(Subject,{
@@ -95,5 +107,5 @@ StudentPackage.belongsTo(Package, {
 
 
 module.exports = {Teacher,Subject,Scoring,Student,Subscription,TeacherPayment,User,ActivityLog,Package,PackageSubject,
-                    StudentPackage,Payment
+                    StudentPackage,Payment,StudentSubject
                 }
